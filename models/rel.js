@@ -79,4 +79,4 @@ Entrega.belongsTo(Pedido, {
   as: 'pedido' 
 });
 
-module.exports = { db, Categoria, Entrega, Estoque, ItemPedido, Pedido, Produto, Usuario };
+module.exports = {Categoria, Entrega, Estoque, ItemPedido, Pedido, Produto, Usuario };
