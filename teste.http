@@ -1,0 +1,305 @@
+@URL_LOCAL = http://localhost:3000
+
+### ==========================================
+### 1. TESTE DE STATUS DA API
+### ==========================================
+GET {{URL_LOCAL}}/
+
+### ==========================================
+### 2. CADASTRO DE USUÁRIOS
+### ==========================================
+
+### 2.1. Cadastrar Usuário 1
+POST {{URL_LOCAL}}/usuario
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@gmail.com",
+  "senha": "123",
+  "cpf": "12345678901"
+}
+
+### 2.2. Cadastrar Usuário 2
+POST {{URL_LOCAL}}/usuario
+Content-Type: application/json
+
+{
+  "nome": "Larissa Souza",
+  "email": "larissa@gmail.com",
+  "senha": "456",
+  "cpf": "98765432100"
+}
+
+### 2.3. Cadastrar Usuário 3
+POST {{URL_LOCAL}}/usuario
+Content-Type: application/json
+
+{
+  "nome": "Carlos Senai",
+  "email": "carlos@gmail.com",
+  "senha": "789",
+  "cpf": "11122233344"
+}
+
+### ==========================================
+### 3. LOGIN DE USUÁRIO 
+### ==========================================
+
+### 3.1. Login com Sucesso
+POST {{URL_LOCAL}}/login
+Content-Type: application/json
+
+{
+  "email": "joao@gmail.com",
+  "senha": "123"
+}
+
+### 3.2. Login com Senha Incorreta
+POST {{URL_LOCAL}}/login
+Content-Type: application/json
+
+{
+  "email": "joao@gmail.com",
+  "senha": "000"
+}
+
+### ==========================================
+### 4. GERENCIAMENTO DE USUÁRIOS
+### ==========================================
+
+### 4.1. Listar Usuários (Com Autenticação)
+GET {{URL_LOCAL}}/usuarios?statusLog=true
+Content-Type: application/json
+
+### 4.2. Listar Usuários (Sem Autenticação - Deve Retornar 400)
+GET {{URL_LOCAL}}/usuarios
+Content-Type: application/json
+
+### 4.3. Consultar Usuário por ID
+GET {{URL_LOCAL}}/usuario/1?statusLog=true
+
+### 4.4. Atualizar Usuário
+PUT {{URL_LOCAL}}/usuario/1?statusLog=true
+Content-Type: application/json
+
+{
+  "nome": "João Silva Alterado",
+  "email": "joao_novo@gmail.com",
+  "senha": "123",
+  "cpf": "12345678901"
+}
+
+### 4.5. Apagar Usuário
+DELETE {{URL_LOCAL}}/usuario/3?statusLog=true
+
+### ==========================================
+### 5. CATEGORIAS
+### ==========================================
+
+### 5.1. Cadastrar Categoria
+POST {{URL_LOCAL}}/categoria?statusLog=true
+Content-Type: application/json
+
+{
+  "nome": "Mangás",
+  "descricao": "Livros e quadrinhos japoneses"
+}
+
+### 5.2. Listar Categorias (Público)
+GET {{URL_LOCAL}}/categorias
+
+### 5.3. Consultar Categoria por ID (Público)
+GET {{URL_LOCAL}}/categoria/1
+
+### 5.4. Atualizar Categoria
+PUT {{URL_LOCAL}}/categoria/1?statusLog=true
+Content-Type: application/json
+
+{
+  "nome": "Mangás e HQs"
+}
+
+### 5.5. Apagar Categoria
+DELETE {{URL_LOCAL}}/categoria/1?statusLog=true
+
+### ==========================================
+### 6. PRODUTOS
+### ==========================================
+
+### 6.1. Cadastrar Produto 1
+POST {{URL_LOCAL}}/produto?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "Naruto Vol. 1",
+  "traducao": "Português",
+  "preco": 29.90,
+  "IdCategoria": 1
+}
+
+### 6.2. Cadastrar Produto 2
+POST {{URL_LOCAL}}/produto?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "One Piece Vol. 1",
+  "traducao": "Português",
+  "preco": 34.90,
+  "IdCategoria": 1
+}
+
+### 6.3. Listar Produtos (Público)
+GET {{URL_LOCAL}}/produtos
+
+### 6.4. Consultar Produto por ID (Público)
+GET {{URL_LOCAL}}/produto/1
+
+### 6.5. Atualizar Produto
+PUT {{URL_LOCAL}}/produto/1?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "Naruto Vol. 1 - Edição de Luxo",
+  "traducao": "Português",
+  "preco": 39.90,
+  "IdCategoria": 1
+}
+
+### 6.6. Apagar Produto
+DELETE {{URL_LOCAL}}/produto/2?statusLog=true
+
+### ==========================================
+### 7. ESTOQUE
+### ==========================================
+
+### 7.1. Cadastrar Estoque
+POST {{URL_LOCAL}}/estoque?statusLog=true
+Content-Type: application/json
+
+{
+  "idProduto": 1,
+  "quantidadeDisponivel": 50
+}
+
+### 7.2. Listar Estoques
+GET {{URL_LOCAL}}/estoques?statusLog=true
+
+### 7.3. Consultar Estoque por ID
+GET {{URL_LOCAL}}/estoque/1?statusLog=true
+
+### 7.4. Atualizar Estoque
+PUT {{URL_LOCAL}}/estoque/1?statusLog=true
+Content-Type: application/json
+
+{
+  "quantidadeDisponivel": 45
+}
+
+### 7.5. Apagar Estoque
+DELETE {{URL_LOCAL}}/estoque/1?statusLog=true
+
+### ==========================================
+### 8. PEDIDOS
+### ==========================================
+
+### 8.1. Cadastrar Pedido
+POST {{URL_LOCAL}}/pedido?statusLog=true
+Content-Type: application/json
+
+{
+  "IdUsuario": 1,
+  "valorTotal": 79.80,
+  "status": "PENDENTE"
+}
+
+### 8.2. Listar Pedidos
+GET {{URL_LOCAL}}/pedidos?statusLog=true
+
+### 8.3. Consultar Pedido por ID
+GET {{URL_LOCAL}}/pedido/1?statusLog=true
+
+### 8.4. Atualizar Pedido
+PUT {{URL_LOCAL}}/pedido/1?statusLog=true
+Content-Type: application/json
+
+{
+  "valorTotal": 79.80,
+  "status": "PAGO"
+}
+
+### 8.5. Apagar Pedido
+DELETE {{URL_LOCAL}}/pedido/1?statusLog=true
+
+### ==========================================
+### 9. ITENS DO PEDIDO
+### ==========================================
+
+### 9.1. Cadastrar Item do Pedido
+POST {{URL_LOCAL}}/item-pedido?statusLog=true
+Content-Type: application/json
+
+{
+  "Idpedido": 1,
+  "Idproduto": 1,
+  "quantidade": 2,
+  "precoUnitario": 39.90
+}
+
+### 9.2. Listar Itens do Pedido
+GET {{URL_LOCAL}}/itens-pedido?statusLog=true
+
+### 9.3. Consultar Item do Pedido por ID
+GET {{URL_LOCAL}}/item-pedido/1?statusLog=true
+
+### 9.4. Atualizar Item do Pedido
+PUT {{URL_LOCAL}}/item-pedido/1?statusLog=true
+Content-Type: application/json
+
+{
+  "quantidade": 3,
+  "precoUnitario": 39.90
+}
+
+### 9.5. Apagar Item do Pedido
+DELETE {{URL_LOCAL}}/item-pedido/1?statusLog=true
+
+### ==========================================
+### 10. ENTREGAS
+### ==========================================
+
+### 10.1. Cadastrar Entrega
+POST {{URL_LOCAL}}/entrega?statusLog=true
+Content-Type: application/json
+
+{
+  "IdPedido": 1,
+  "cep": "88200-000",
+  "rua": "Rua das Flores",
+  "numero": "123",
+  "bairro": "Centro",
+  "cidade": "Tijucas",
+  "estado": "SC"
+}
+
+### 10.2. Listar Entregas
+GET {{URL_LOCAL}}/entregas?statusLog=true
+
+### 10.3. Consultar Entrega por ID
+GET {{URL_LOCAL}}/entrega/1?statusLog=true
+
+### 10.4. Atualizar Entrega
+PUT {{URL_LOCAL}}/entrega/1?statusLog=true
+Content-Type: application/json
+
+{
+  "cep": "88200-000",
+  "rua": "Rua das Flores",
+  "numero": "124",
+  "bairro": "Centro",
+  "cidade": "Tijucas",
+  "estado": "SC"
+}
+
+### 10.5. Apagar Entrega
+DELETE {{URL_LOCAL}}/entrega/1?statusLog=true

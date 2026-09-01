@@ -16,37 +16,6 @@ const cadastrar = async (req, res) => {
     }
 }
 
-const login = async (req, res) => {
-    const valores = req.body
-
-    if (!valores.email || !valores.senha) {
-        return res.status(400).json({ message: "Para Login, Digite email e senha!" })
-    }
-
-    try {
-        const dados = await Usuario.findOne({ where: { email: valores.email } })
-
-        if (!dados) {
-            return res.status(404).json({ message: 'Usuário Não encontrado!' })
-        }
-
-        if (valores.senha === dados.senha) {
-            res.status(200).json({
-                message: 'Login realizados com sucesso',
-                statusLog: true,
-                nome: dados.nome,
-                codUsuario: dados.codUsuario
-            })
-        } else {
-            res.status(403).json({ message: 'Senha incorreta! Tente Novamente' })
-        }
-
-    } catch (err) {
-        console.error('Erro ao tentar fazer o login', err)
-        res.status(500).json({ message: 'Erro ao tentar fazer o login' })
-    }
-}
-
 const listar = async (req, res) => {
     try {
         let dados = await Usuario.findAll()
@@ -115,4 +84,4 @@ const apagar = async (req, res) => {
     }
 }
 
-module.exports = { cadastrar, login, listar, consultar, atualizar, apagar }
+module.exports = { cadastrar, listar, consultar, atualizar, apagar }
