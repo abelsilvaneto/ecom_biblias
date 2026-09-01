@@ -1,9 +1,16 @@
-const {Sequelize} = require('sequelize').Sequelize
+const { Sequelize } = require('sequelize')
+require('dotenv').config()
 
-const db = new Sequelize('db_biblia','root','senai',{
-    dialect: 'mysql',
-    port: 3306,
-    host: 'localhost'
-})
+const conn = new Sequelize(
+    process.env.MYSQLDATABASE || 'ecommerce',
+    process.env.MYSQLUSER || 'root',
+    process.env.MYSQLPASSWORD || 'root',
+    {
+        host: process.env.MYSQLHOST || 'localhost',
+        port: process.env.MYSQLPORT || 3306,
+        dialect: 'mysql',
+        logging: false
+    }
+)
 
-module.exports = db
+module.exports = conn

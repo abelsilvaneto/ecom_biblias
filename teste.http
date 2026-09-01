@@ -1,305 +1,285 @@
+# ==========================================
+# CONFIGURAÇÃO DOS AMBIENTES
+# ==========================================
 @URL_LOCAL = http://localhost:3000
+@URL_RAILWAY = https://seu-projeto.up.railway.app
+
+# Escolha qual ambiente testar alterando a variável abaixo nas requisições
+@URL = {{URL_LOCAL}}
+# @URL = {{URL_RAILWAY}}
 
 ### ==========================================
 ### 1. TESTE DE STATUS DA API
 ### ==========================================
-GET {{URL_LOCAL}}/
+GET {{URL}}/
+
 
 ### ==========================================
-### 2. CADASTRO DE USUÁRIOS
+### 2. CADASTRO DE USUÁRIOS (3 Usuários)
 ### ==========================================
 
 ### 2.1. Cadastrar Usuário 1
-POST {{URL_LOCAL}}/usuario
+POST {{URL}}/usuario
 Content-Type: application/json
 
 {
   "nome": "João Silva",
-  "email": "joao@gmail.com",
+  "email": "joao@email.com",
   "senha": "123",
   "cpf": "12345678901"
 }
 
 ### 2.2. Cadastrar Usuário 2
-POST {{URL_LOCAL}}/usuario
+POST {{URL}}/usuario
 Content-Type: application/json
 
 {
-  "nome": "Larissa Souza",
-  "email": "larissa@gmail.com",
+  "nome": "Maria Oliveira",
+  "email": "maria@email.com",
   "senha": "456",
   "cpf": "98765432100"
 }
 
 ### 2.3. Cadastrar Usuário 3
-POST {{URL_LOCAL}}/usuario
+POST {{URL}}/usuario
 Content-Type: application/json
 
 {
-  "nome": "Carlos Senai",
-  "email": "carlos@gmail.com",
+  "nome": "Carlos Souza",
+  "email": "carlos@email.com",
   "senha": "789",
   "cpf": "11122233344"
 }
 
+
 ### ==========================================
-### 3. LOGIN DE USUÁRIO 
+### 3. AUTENTICAÇÃO (LOGIN)
 ### ==========================================
 
-### 3.1. Login com Sucesso
-POST {{URL_LOCAL}}/login
+### 3.1. Realizar Login
+POST {{URL}}/login
 Content-Type: application/json
 
 {
-  "email": "joao@gmail.com",
+  "email": "joao@email.com",
   "senha": "123"
 }
 
-### 3.2. Login com Senha Incorreta
-POST {{URL_LOCAL}}/login
-Content-Type: application/json
-
-{
-  "email": "joao@gmail.com",
-  "senha": "000"
-}
 
 ### ==========================================
-### 4. GERENCIAMENTO DE USUÁRIOS
+### 4. CONSULTAS E OPERAÇÕES DE USUÁRIOS
 ### ==========================================
 
-### 4.1. Listar Usuários (Com Autenticação)
-GET {{URL_LOCAL}}/usuarios?statusLog=true
-Content-Type: application/json
+### 4.1. Listar Usuários (Autenticado)
+GET {{URL}}/usuarios?statusLog=true
 
-### 4.2. Listar Usuários (Sem Autenticação - Deve Retornar 400)
-GET {{URL_LOCAL}}/usuarios
-Content-Type: application/json
+### 4.2. Consultar Usuário por ID (ID 1)
+GET {{URL}}/usuario/1?statusLog=true
 
-### 4.3. Consultar Usuário por ID
-GET {{URL_LOCAL}}/usuario/1?statusLog=true
-
-### 4.4. Atualizar Usuário
-PUT {{URL_LOCAL}}/usuario/1?statusLog=true
+### 4.3. Atualizar Usuário (ID 1)
+PUT {{URL}}/usuario/1?statusLog=true
 Content-Type: application/json
 
 {
   "nome": "João Silva Alterado",
-  "email": "joao_novo@gmail.com",
+  "email": "joao.novo@email.com",
   "senha": "123",
   "cpf": "12345678901"
 }
 
-### 4.5. Apagar Usuário
-DELETE {{URL_LOCAL}}/usuario/3?statusLog=true
+### 4.4. Apagar Usuário (ID 3)
+DELETE {{URL}}/usuario/3?statusLog=true
+
 
 ### ==========================================
 ### 5. CATEGORIAS
 ### ==========================================
 
 ### 5.1. Cadastrar Categoria
-POST {{URL_LOCAL}}/categoria?statusLog=true
+POST {{URL}}/categoria?statusLog=true
 Content-Type: application/json
 
 {
-  "nome": "Mangás",
-  "descricao": "Livros e quadrinhos japoneses"
+  "nome": "Periféricos",
+  "descricao": "Teclados, mouses e acessórios"
 }
 
 ### 5.2. Listar Categorias (Público)
-GET {{URL_LOCAL}}/categorias
+GET {{URL}}/categorias
 
 ### 5.3. Consultar Categoria por ID (Público)
-GET {{URL_LOCAL}}/categoria/1
+GET {{URL}}/categoria/1
 
 ### 5.4. Atualizar Categoria
-PUT {{URL_LOCAL}}/categoria/1?statusLog=true
+PUT {{URL}}/categoria/1?statusLog=true
 Content-Type: application/json
 
 {
-  "nome": "Mangás e HQs"
+  "nome": "Periféricos e Acessórios",
+  "descricao": "Teclados, mouses, headsets e acessórios"
 }
 
-### 5.5. Apagar Categoria
-DELETE {{URL_LOCAL}}/categoria/1?statusLog=true
 
 ### ==========================================
-### 6. PRODUTOS
+### 6. CADASTRO DE PRODUTOS (5 Produtos)
 ### ==========================================
 
 ### 6.1. Cadastrar Produto 1
-POST {{URL_LOCAL}}/produto?statusLog=true
+POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Naruto Vol. 1",
-  "traducao": "Português",
-  "preco": 29.90,
+  "titulo": "Teclado Mecânico RGB",
+  "traducao": "Português BR",
+  "preco": 250.00,
   "IdCategoria": 1
 }
 
 ### 6.2. Cadastrar Produto 2
-POST {{URL_LOCAL}}/produto?statusLog=true
+POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "One Piece Vol. 1",
-  "traducao": "Português",
-  "preco": 34.90,
+  "titulo": "Mouse Gamer 10000 DPI",
+  "traducao": "Português BR",
+  "preco": 180.50,
   "IdCategoria": 1
 }
 
-### 6.3. Listar Produtos (Público)
-GET {{URL_LOCAL}}/produtos
-
-### 6.4. Consultar Produto por ID (Público)
-GET {{URL_LOCAL}}/produto/1
-
-### 6.5. Atualizar Produto
-PUT {{URL_LOCAL}}/produto/1?statusLog=true
+### 6.3. Cadastrar Produto 3
+POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Naruto Vol. 1 - Edição de Luxo",
-  "traducao": "Português",
-  "preco": 39.90,
+  "titulo": "Monitor 24 Pol Full HD",
+  "traducao": "Português BR",
+  "preco": 899.90,
   "IdCategoria": 1
 }
 
-### 6.6. Apagar Produto
-DELETE {{URL_LOCAL}}/produto/2?statusLog=true
+### 6.4. Cadastrar Produto 4
+POST {{URL}}/produto?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "Headset Surround 7.1",
+  "traducao": "Português BR",
+  "preco": 210.00,
+  "IdCategoria": 1
+}
+
+### 6.5. Cadastrar Produto 5
+POST {{URL}}/produto?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "Webcam Full HD 1080p",
+  "traducao": "Português BR",
+  "preco": 320.00,
+  "IdCategoria": 1
+}
+
 
 ### ==========================================
-### 7. ESTOQUE
+### 7. CONSULTAS E OPERAÇÕES DE PRODUTOS
 ### ==========================================
 
-### 7.1. Cadastrar Estoque
-POST {{URL_LOCAL}}/estoque?statusLog=true
+### 7.1. Listar Produtos (Público)
+GET {{URL}}/produtos
+
+### 7.2. Consultar Produto por ID (Público)
+GET {{URL}}/produto/1
+
+### 7.3. Atualizar Produto (ID 1)
+PUT {{URL}}/produto/1?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "Teclado Mecânico Wireless",
+  "traducao": "Português BR",
+  "preco": 280.00,
+  "IdCategoria": 1
+}
+
+
+### ==========================================
+### 8. MOVIMENTAÇÕES E CONTROLE DE ESTOQUE
+### ==========================================
+
+### 8.1. Cadastrar Estoque - Produto 1
+POST {{URL}}/estoque?statusLog=true
 Content-Type: application/json
 
 {
   "idProduto": 1,
-  "quantidadeDisponivel": 50
+  "quantidadeDisponivel": 15
 }
 
-### 7.2. Listar Estoques
-GET {{URL_LOCAL}}/estoques?statusLog=true
-
-### 7.3. Consultar Estoque por ID
-GET {{URL_LOCAL}}/estoque/1?statusLog=true
-
-### 7.4. Atualizar Estoque
-PUT {{URL_LOCAL}}/estoque/1?statusLog=true
+### 8.2. Cadastrar Estoque - Produto 2
+POST {{URL}}/estoque?statusLog=true
 Content-Type: application/json
 
 {
-  "quantidadeDisponivel": 45
+  "idProduto": 2,
+  "quantidadeDisponivel": 20
 }
 
-### 7.5. Apagar Estoque
-DELETE {{URL_LOCAL}}/estoque/1?statusLog=true
+### 8.3. Listar Todo o Estoque
+GET {{URL}}/estoques?statusLog=true
+
+### 8.4. Consultar Estoque por ID
+GET {{URL}}/estoque/1?statusLog=true
+
+### 8.5. Atualizar Quantidade do Estoque (ID 1)
+PUT {{URL}}/estoque/1?statusLog=true
+Content-Type: application/json
+
+{
+  "quantidadeDisponivel": 12
+}
+
 
 ### ==========================================
-### 8. PEDIDOS
+### 9. PEDIDOS, ITENS E ENTREGAS
 ### ==========================================
 
-### 8.1. Cadastrar Pedido
-POST {{URL_LOCAL}}/pedido?statusLog=true
+### 9.1. Criar Pedido
+POST {{URL}}/pedido?statusLog=true
 Content-Type: application/json
 
 {
   "IdUsuario": 1,
-  "valorTotal": 79.80,
+  "valorTotal": 460.50,
   "status": "PENDENTE"
 }
 
-### 8.2. Listar Pedidos
-GET {{URL_LOCAL}}/pedidos?statusLog=true
+### 9.2. Listar Pedidos
+GET {{URL}}/pedidos?statusLog=true
 
-### 8.3. Consultar Pedido por ID
-GET {{URL_LOCAL}}/pedido/1?statusLog=true
-
-### 8.4. Atualizar Pedido
-PUT {{URL_LOCAL}}/pedido/1?statusLog=true
-Content-Type: application/json
-
-{
-  "valorTotal": 79.80,
-  "status": "PAGO"
-}
-
-### 8.5. Apagar Pedido
-DELETE {{URL_LOCAL}}/pedido/1?statusLog=true
-
-### ==========================================
-### 9. ITENS DO PEDIDO
-### ==========================================
-
-### 9.1. Cadastrar Item do Pedido
-POST {{URL_LOCAL}}/item-pedido?statusLog=true
+### 9.3. Cadastrar Item no Pedido
+POST {{URL}}/item-pedido?statusLog=true
 Content-Type: application/json
 
 {
   "Idpedido": 1,
   "Idproduto": 1,
-  "quantidade": 2,
-  "precoUnitario": 39.90
+  "quantidade": 1,
+  "precoUnitario": 280.00
 }
 
-### 9.2. Listar Itens do Pedido
-GET {{URL_LOCAL}}/itens-pedido?statusLog=true
-
-### 9.3. Consultar Item do Pedido por ID
-GET {{URL_LOCAL}}/item-pedido/1?statusLog=true
-
-### 9.4. Atualizar Item do Pedido
-PUT {{URL_LOCAL}}/item-pedido/1?statusLog=true
-Content-Type: application/json
-
-{
-  "quantidade": 3,
-  "precoUnitario": 39.90
-}
-
-### 9.5. Apagar Item do Pedido
-DELETE {{URL_LOCAL}}/item-pedido/1?statusLog=true
-
-### ==========================================
-### 10. ENTREGAS
-### ==========================================
-
-### 10.1. Cadastrar Entrega
-POST {{URL_LOCAL}}/entrega?statusLog=true
+### 9.4. Cadastrar Dados de Entrega
+POST {{URL}}/entrega?statusLog=true
 Content-Type: application/json
 
 {
   "IdPedido": 1,
   "cep": "88200-000",
   "rua": "Rua das Flores",
-  "numero": "123",
+  "numero": "100",
   "bairro": "Centro",
   "cidade": "Tijucas",
   "estado": "SC"
 }
 
-### 10.2. Listar Entregas
-GET {{URL_LOCAL}}/entregas?statusLog=true
-
-### 10.3. Consultar Entrega por ID
-GET {{URL_LOCAL}}/entrega/1?statusLog=true
-
-### 10.4. Atualizar Entrega
-PUT {{URL_LOCAL}}/entrega/1?statusLog=true
-Content-Type: application/json
-
-{
-  "cep": "88200-000",
-  "rua": "Rua das Flores",
-  "numero": "124",
-  "bairro": "Centro",
-  "cidade": "Tijucas",
-  "estado": "SC"
-}
-
-### 10.5. Apagar Entrega
-DELETE {{URL_LOCAL}}/entrega/1?statusLog=true
+### 9.5. Listar Entregas
+GET {{URL}}/entregas?statusLog=true
