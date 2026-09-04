@@ -2,9 +2,9 @@ const { Sequelize } = require('sequelize')
 require('dotenv').config()
 
 const conn = new Sequelize(
-    process.env.MYSQLDATABASE || 'ecommerce',
+    process.env.MYSQLDATABASE || 'db_biblia',
     process.env.MYSQLUSER || 'root',
-    process.env.MYSQLPASSWORD || 'root',
+    process.env.MYSQLPASSWORD || 'senai',
     {
         host: process.env.MYSQLHOST || 'localhost',
         port: process.env.MYSQLPORT || 3306,

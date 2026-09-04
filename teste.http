@@ -4,282 +4,355 @@
 @URL_LOCAL = http://localhost:3000
 @URL_RAILWAY = https://seu-projeto.up.railway.app
 
-# Escolha qual ambiente testar alterando a variável abaixo nas requisições
+# Defina o ambiente ativo
 @URL = {{URL_LOCAL}}
-# @URL = {{URL_RAILWAY}}
 
 ### ==========================================
-### 1. TESTE DE STATUS DA API
+### 1. STATUS DA API
 ### ==========================================
 GET {{URL}}/
 
-
 ### ==========================================
-### 2. CADASTRO DE USUÁRIOS (3 Usuários)
+### 2. USUÁRIOS E AUTENTICAÇÃO
 ### ==========================================
 
-### 2.1. Cadastrar Usuário 1
+### 2.1. Cadastrar Usuário Cliente 1
 POST {{URL}}/usuario
 Content-Type: application/json
 
 {
-  "nome": "João Silva",
-  "email": "joao@email.com",
+  "nome": "João Ferreira",
+  "email": "joao.leitor@email.com",
   "senha": "123",
-  "cpf": "12345678901"
+  "cpf": "12345678901",
+  "tipo": "CLIENTE"
 }
 
-### 2.2. Cadastrar Usuário 2
+### 2.2. Cadastrar Usuário Cliente 2
 POST {{URL}}/usuario
 Content-Type: application/json
 
 {
-  "nome": "Maria Oliveira",
-  "email": "maria@email.com",
-  "senha": "456",
-  "cpf": "98765432100"
+  "nome": "Maria Santos",
+  "email": "maria.devocional@email.com",
+  "senha": "123",
+  "cpf": "98765432100",
+  "tipo": "CLIENTE"
 }
 
-### 2.3. Cadastrar Usuário 3
+### 2.3. Cadastrar Usuário Admin
 POST {{URL}}/usuario
 Content-Type: application/json
 
 {
-  "nome": "Carlos Souza",
-  "email": "carlos@email.com",
-  "senha": "789",
-  "cpf": "11122233344"
+  "nome": "Administrador Livraria",
+  "email": "admin@livraria.com",
+  "senha": "admin",
+  "cpf": "11122233344",
+  "tipo": "ADMIN"
 }
 
-
-### ==========================================
-### 3. AUTENTICAÇÃO (LOGIN)
-### ==========================================
-
-### 3.1. Realizar Login
+### 2.4. Realizar Login
 POST {{URL}}/login
 Content-Type: application/json
 
 {
-  "email": "joao@email.com",
+  "email": "joao.leitor@email.com",
   "senha": "123"
 }
 
-
-### ==========================================
-### 4. CONSULTAS E OPERAÇÕES DE USUÁRIOS
-### ==========================================
-
-### 4.1. Listar Usuários (Autenticado)
+### 2.5. Listar Todos os Usuários
 GET {{URL}}/usuarios?statusLog=true
 
-### 4.2. Consultar Usuário por ID (ID 1)
+### 2.6. Consultar Usuário por ID
 GET {{URL}}/usuario/1?statusLog=true
 
-### 4.3. Atualizar Usuário (ID 1)
+### 2.7. Atualizar Usuário
 PUT {{URL}}/usuario/1?statusLog=true
 Content-Type: application/json
 
 {
-  "nome": "João Silva Alterado",
-  "email": "joao.novo@email.com",
+  "nome": "João Ferreira Silva",
+  "email": "joao.leitor@email.com",
   "senha": "123",
-  "cpf": "12345678901"
+  "cpf": "12345678901",
+  "tipo": "CLIENTE"
 }
 
-### 4.4. Apagar Usuário (ID 3)
-DELETE {{URL}}/usuario/3?statusLog=true
+### 2.8. Deletar Usuário (Ex: ID 2)
+DELETE {{URL}}/usuario/2?statusLog=true
 
 
 ### ==========================================
-### 5. CATEGORIAS
+### 3. CATEGORIAS DE BÍBLIAS
 ### ==========================================
 
-### 5.1. Cadastrar Categoria
+### 3.1. Cadastrar Categoria 1 (Bíblias de Estudo)
 POST {{URL}}/categoria?statusLog=true
 Content-Type: application/json
 
 {
-  "nome": "Periféricos",
-  "descricao": "Teclados, mouses e acessórios"
+  "nome": "Bíblias de Estudo",
+  "descricao": "Contém notas explicativas, mapas, concordância e artigos teológicos."
 }
 
-### 5.2. Listar Categorias (Público)
+### 3.2. Cadastrar Categoria 2 (Devocionais e Femininas)
+POST {{URL}}/categoria?statusLog=true
+Content-Type: application/json
+
+{
+  "nome": "Devocionais e Femininas",
+  "descricao": "Bíblias com plano de leitura diária e edições especiais."
+}
+
+### 3.3. Cadastrar Categoria 3 (Infantis)
+POST {{URL}}/categoria?statusLog=true
+Content-Type: application/json
+
+{
+  "nome": "Bíblias Infantis",
+  "descricao": "Linguagem simplificada e ilustrações para crianças."
+}
+
+### 3.4. Listar Categorias
 GET {{URL}}/categorias
 
-### 5.3. Consultar Categoria por ID (Público)
+### 3.5. Consultar Categoria por ID
 GET {{URL}}/categoria/1
 
-### 5.4. Atualizar Categoria
+### 3.6. Atualizar Categoria
 PUT {{URL}}/categoria/1?statusLog=true
 Content-Type: application/json
 
 {
-  "nome": "Periféricos e Acessórios",
-  "descricao": "Teclados, mouses, headsets e acessórios"
+  "nome": "Bíblias de Estudo e Teológicas",
+  "descricao": "Contém comentários avançados, exegese, mapas e gráficos."
 }
 
 
 ### ==========================================
-### 6. CADASTRO DE PRODUTOS (5 Produtos)
+### 4. PRODUTOS (BÍBLIAS)
 ### ==========================================
 
-### 6.1. Cadastrar Produto 1
+### 4.1. Cadastrar Bíblia 1
 POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Teclado Mecânico RGB",
-  "traducao": "Português BR",
-  "preco": 250.00,
-  "IdCategoria": 1
+  "titulo": "Bíblia de Estudo de Genebra",
+  "traducao": "ARA (Almeida Revista e Atualizada)",
+  "preco": 189.90,
+  "imagemUrl": "https://imagem.com/genebra.jpg",
+  "idCategoria": 1
 }
 
-### 6.2. Cadastrar Produto 2
+### 4.2. Cadastrar Bíblia 2
 POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Mouse Gamer 10000 DPI",
-  "traducao": "Português BR",
-  "preco": 180.50,
-  "IdCategoria": 1
+  "titulo": "Bíblia de Estudo NVI",
+  "traducao": "NVI (Nova Versão Internacional)",
+  "preco": 169.00,
+  "imagemUrl": "https://imagem.com/nvi-estudo.jpg",
+  "idCategoria": 1
 }
 
-### 6.3. Cadastrar Produto 3
+### 4.3. Cadastrar Bíblia 3
 POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Monitor 24 Pol Full HD",
-  "traducao": "Português BR",
-  "preco": 899.90,
-  "IdCategoria": 1
+  "titulo": "Bíblia da Mulher que Ora",
+  "traducao": "ARC (Almeida Revista e Corrigida)",
+  "preco": 89.90,
+  "imagemUrl": "https://imagem.com/mulher-ora.jpg",
+  "idCategoria": 2
 }
 
-### 6.4. Cadastrar Produto 4
+### 4.4. Cadastrar Bíblia 4
 POST {{URL}}/produto?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Headset Surround 7.1",
-  "traducao": "Português BR",
+  "titulo": "Bíblia Infantil Ilustrada",
+  "traducao": "NTLH (Nova Tradução na Linguagem de Hoje)",
+  "preco": 59.90,
+  "imagemUrl": "https://imagem.com/infantil.jpg",
+  "idCategoria": 3
+}
+
+### 4.5. Cadastrar Bíblia 5
+POST {{URL}}/produto?statusLog=true
+Content-Type: application/json
+
+{
+  "titulo": "Bíblia Thompson",
+  "traducao": "ARC (Almeida Revista e Corrigida)",
   "preco": 210.00,
-  "IdCategoria": 1
+  "imagemUrl": "https://imagem.com/thompson.jpg",
+  "idCategoria": 1
 }
 
-### 6.5. Cadastrar Produto 5
-POST {{URL}}/produto?statusLog=true
-Content-Type: application/json
-
-{
-  "titulo": "Webcam Full HD 1080p",
-  "traducao": "Português BR",
-  "preco": 320.00,
-  "IdCategoria": 1
-}
-
-
-### ==========================================
-### 7. CONSULTAS E OPERAÇÕES DE PRODUTOS
-### ==========================================
-
-### 7.1. Listar Produtos (Público)
+### 4.6. Listar Produtos
 GET {{URL}}/produtos
 
-### 7.2. Consultar Produto por ID (Público)
+### 4.7. Consultar Produto por ID
 GET {{URL}}/produto/1
 
-### 7.3. Atualizar Produto (ID 1)
+### 4.8. Atualizar Produto
 PUT {{URL}}/produto/1?statusLog=true
 Content-Type: application/json
 
 {
-  "titulo": "Teclado Mecânico Wireless",
-  "traducao": "Português BR",
-  "preco": 280.00,
-  "IdCategoria": 1
+  "titulo": "Bíblia de Estudo de Genebra - Edição de Luxo",
+  "traducao": "ARA (Almeida Revista e Atualizada)",
+  "preco": 199.90,
+  "imagemUrl": "https://imagem.com/genebra-luxo.jpg",
+  "idCategoria": 1
 }
 
 
 ### ==========================================
-### 8. MOVIMENTAÇÕES E CONTROLE DE ESTOQUE
+### 5. ESTOQUE
 ### ==========================================
 
-### 8.1. Cadastrar Estoque - Produto 1
+### 5.1. Criar Estoque para a Bíblia 1
 POST {{URL}}/estoque?statusLog=true
 Content-Type: application/json
 
 {
   "idProduto": 1,
-  "quantidadeDisponivel": 15
+  "quantidadeDisponivel": 25
 }
 
-### 8.2. Cadastrar Estoque - Produto 2
+### 5.2. Criar Estoque para a Bíblia 2
 POST {{URL}}/estoque?statusLog=true
 Content-Type: application/json
 
 {
   "idProduto": 2,
-  "quantidadeDisponivel": 20
+  "quantidadeDisponivel": 40
 }
 
-### 8.3. Listar Todo o Estoque
+### 5.3. Criar Estoque para a Bíblia 3
+POST {{URL}}/estoque?statusLog=true
+Content-Type: application/json
+
+{
+  "idProduto": 3,
+  "quantidadeDisponivel": 15
+}
+
+### 5.4. Listar Todo o Estoque
 GET {{URL}}/estoques?statusLog=true
 
-### 8.4. Consultar Estoque por ID
+### 5.5. Consultar Estoque por ID
 GET {{URL}}/estoque/1?statusLog=true
 
-### 8.5. Atualizar Quantidade do Estoque (ID 1)
+### 5.6. Atualizar Quantidade no Estoque
 PUT {{URL}}/estoque/1?statusLog=true
 Content-Type: application/json
 
 {
-  "quantidadeDisponivel": 12
+  "quantidadeDisponivel": 20
 }
 
 
 ### ==========================================
-### 9. PEDIDOS, ITENS E ENTREGAS
+### 6. PEDIDOS
 ### ==========================================
 
-### 9.1. Criar Pedido
+### 6.1. Criar Pedido
 POST {{URL}}/pedido?statusLog=true
 Content-Type: application/json
 
 {
-  "IdUsuario": 1,
-  "valorTotal": 460.50,
+  "idUsuario": 1,
+  "valorTotal": 289.80,
   "status": "PENDENTE"
 }
 
-### 9.2. Listar Pedidos
+### 6.2. Listar Todos os Pedidos
 GET {{URL}}/pedidos?statusLog=true
 
-### 9.3. Cadastrar Item no Pedido
+### 6.3. Consultar Pedido por ID
+GET {{URL}}/pedido/1?statusLog=true
+
+### 6.4. Atualizar Status do Pedido
+PUT {{URL}}/pedido/1?statusLog=true
+Content-Type: application/json
+
+{
+  "idUsuario": 1,
+  "valorTotal": 289.80,
+  "status": "PAGO"
+}
+
+
+### ==========================================
+### 7. ITENS DO PEDIDO
+### ==========================================
+
+### 7.1. Adicionar Item 1 ao Pedido (Bíblia Genebra)
 POST {{URL}}/item-pedido?statusLog=true
 Content-Type: application/json
 
 {
-  "Idpedido": 1,
-  "Idproduto": 1,
+  "idPedido": 1,
+  "idProduto": 1,
   "quantidade": 1,
-  "precoUnitario": 280.00
+  "precoUnitario": 199.90
 }
 
-### 9.4. Cadastrar Dados de Entrega
+### 7.2. Adicionar Item 2 ao Pedido (Bíblia Mulher)
+POST {{URL}}/item-pedido?statusLog=true
+Content-Type: application/json
+
+{
+  "idPedido": 1,
+  "idProduto": 3,
+  "quantidade": 1,
+  "precoUnitario": 89.90
+}
+
+### 7.3. Listar Itens dos Pedidos
+GET {{URL}}/itens-pedido?statusLog=true
+
+### 7.4. Consultar Item do Pedido por ID
+GET {{URL}}/item-pedido/1?statusLog=true
+
+
+### ==========================================
+### 8. ENTREGAS
+### ==========================================
+
+### 8.1. Cadastrar Endereço de Entrega do Pedido
 POST {{URL}}/entrega?statusLog=true
 Content-Type: application/json
 
 {
-  "IdPedido": 1,
+  "idPedido": 1,
   "cep": "88200-000",
-  "rua": "Rua das Flores",
-  "numero": "100",
+  "rua": "Avenida Lauro Müller",
+  "numero": "250",
+  "complemento": "Apto 102",
   "bairro": "Centro",
   "cidade": "Tijucas",
-  "estado": "SC"
+  "estado": "SC",
+  "statusEntrega": "EM_PREPARACAO"
 }
 
-### 9.5. Listar Entregas
+### 8.2. Listar Entregas
 GET {{URL}}/entregas?statusLog=true
+
+### 8.3. Consultar Entrega por ID
+GET {{URL}}/entrega/1?statusLog=true
+
+### 8.4. Atualizar Status da Entrega
+PUT {{URL}}/entrega/1?statusLog=true
+Content-Type: application/json
+
+{
+  "statusEntrega": "EM_TRANSITO"
+}

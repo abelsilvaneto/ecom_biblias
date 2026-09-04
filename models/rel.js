@@ -1,82 +1,87 @@
-
-const Categoria = require('./Categoria');
-const Entrega = require('./Entrega');
-const Estoque = require('./Estoque');
-const ItemPedido = require('./itemPedidos');
-const Pedido = require('./Pedidos');
-const Produto = require('./Produto');
-const Usuario = require('./Usuario');
+const Categoria = require('./Categoria')
+const Entrega = require('./Entrega')
+const Estoque = require('./Estoque')
+const ItemPedido = require('./ItemPedidos')
+const Pedido = require('./Pedidos')
+const Produto = require('./Produto')
+const Usuario = require('./Usuario')
 
 // 1. Categoria <-> Produto (1:N)
-Categoria.hasMany(Produto, { 
-  foreignKey: 'IdCategoria', 
-  sourceKey: 'codCategoria',
-  as: 'produtos' 
-});
-Produto.belongsTo(Categoria, { 
-  foreignKey: 'IdCategoria', 
-  targetKey: 'codCategoria',
-  as: 'categoria' 
-});
+Categoria.hasMany(Produto, {
+    foreignKey: 'idCategoria',
+    as: 'produtosCategoria',
+    onDelete: 'CASCADE'
+})
+
+Produto.belongsTo(Categoria, {
+    foreignKey: 'idCategoria',
+    as: 'categoriaProduto',
+    allowNull: false
+})
 
 // 2. Produto <-> Estoque (1:1)
-Produto.hasOne(Estoque, { 
-  foreignKey: 'idProduto', 
-  sourceKey: 'codProduto',
-  as: 'estoque' 
-});
-Estoque.belongsTo(Produto, { 
-  foreignKey: 'idProduto', 
-  targetKey: 'codProduto',
-  as: 'produto' 
-});
+Produto.hasOne(Estoque, {
+    foreignKey: 'idProduto',
+    as: 'estoqueProduto',
+    onDelete: 'CASCADE'
+})
+
+Estoque.belongsTo(Produto, {
+    foreignKey: 'idProduto',
+    as: 'produtoEstoque',
+    allowNull: false
+})
 
 // 3. Usuario <-> Pedido (1:N)
-Usuario.hasMany(Pedido, { 
-  foreignKey: 'IdUsuario', 
-  sourceKey: 'codUsuario',
-  as: 'pedidos' 
-});
-Pedido.belongsTo(Usuario, { 
-  foreignKey: 'IdUsuario', 
-  targetKey: 'codUsuario',
-  as: 'usuario' 
-});
+Usuario.hasMany(Pedido, {
+    foreignKey: 'idUsuario',
+    as: 'pedidosUsuario',
+    onDelete: 'CASCADE'
+})
+
+Pedido.belongsTo(Usuario, {
+    foreignKey: 'idUsuario',
+    as: 'usuarioPedido',
+    allowNull: false
+})
 
 // 4. Pedido <-> ItemPedido (1:N)
-Pedido.hasMany(ItemPedido, { 
-  foreignKey: 'Idpedido', 
-  sourceKey: 'codPedido',
-  as: 'itens' 
-});
-ItemPedido.belongsTo(Pedido, { 
-  foreignKey: 'Idpedido', 
-  targetKey: 'codPedido',
-  as: 'pedido' 
-});
+Pedido.hasMany(ItemPedido, {
+    foreignKey: 'idPedido',
+    as: 'itensPedido',
+    onDelete: 'CASCADE'
+})
+
+ItemPedido.belongsTo(Pedido, {
+    foreignKey: 'idPedido',
+    as: 'pedidoItem',
+    allowNull: false
+})
 
 // 5. Produto <-> ItemPedido (1:N)
-Produto.hasMany(ItemPedido, { 
-  foreignKey: 'Idproduto', 
-  sourceKey: 'codProduto',
-  as: 'itensPedido' 
-});
-ItemPedido.belongsTo(Produto, { 
-  foreignKey: 'Idproduto', 
-  targetKey: 'codProduto',
-  as: 'produto' 
-});
+Produto.hasMany(ItemPedido, {
+    foreignKey: 'idProduto',
+    as: 'itensProduto',
+    onDelete: 'CASCADE'
+})
+
+ItemPedido.belongsTo(Produto, {
+    foreignKey: 'idProduto',
+    as: 'produtoItem',
+    allowNull: false
+})
 
 // 6. Pedido <-> Entrega (1:1)
-Pedido.hasOne(Entrega, { 
-  foreignKey: 'IdPedido', 
-  sourceKey: 'codPedido',
-  as: 'entrega' 
-});
-Entrega.belongsTo(Pedido, { 
-  foreignKey: 'IdPedido', 
-  targetKey: 'codPedido',
-  as: 'pedido' 
-});
+Pedido.hasOne(Entrega, {
+    foreignKey: 'idPedido',
+    as: 'entregaPedido',
+    onDelete: 'CASCADE'
+})
 
-module.exports = {Categoria, Entrega, Estoque, ItemPedido, Pedido, Produto, Usuario };
+Entrega.belongsTo(Pedido, {
+    foreignKey: 'idPedido',
+    as: 'pedidoEntrega',
+    allowNull: false
+})
+
+module.exports = { Categoria, Entrega, Estoque, ItemPedido, Pedido, Produto, Usuario }

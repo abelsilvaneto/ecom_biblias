@@ -7,7 +7,7 @@ const ItemPedido = db.define('itemPedido', {
         autoIncrement: true,
         primaryKey: true
     },
-    Idpedido: {
+    idPedido: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -15,7 +15,7 @@ const ItemPedido = db.define('itemPedido', {
             key: 'codPedido'
         }
     },
-    Idproduto: {
+    idProduto: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

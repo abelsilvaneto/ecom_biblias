@@ -7,12 +7,12 @@ const Pedido = sequelize.define('Pedido', {
         autoIncrement: true,
         primaryKey: true
     },
-    IdUsuario: {
+    idUsuario: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'usuarios',
-            key: 'idUsuario'
+            key: 'codUsuario'
         }
     },
     dataPedido: {

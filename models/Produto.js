@@ -23,7 +23,7 @@ const Produto = db.define('Produto', {
         type: DataTypes.STRING(255),
         allowNull: true
     },
-    IdCategoria: {
+    idCategoria: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

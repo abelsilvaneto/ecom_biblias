@@ -7,7 +7,7 @@ const Entrega = db.define('entrega', {
         autoIncrement: true,
         primaryKey: true
     },
-    IdPedido: {
+    idPedido: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
