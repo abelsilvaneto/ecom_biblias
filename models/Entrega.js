@@ -2,28 +2,28 @@ const { DataTypes } = require('sequelize');
 const db = require('../db/conn');
 
 const Entrega = db.define('entrega', {
-    codEntrega: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    idPedido: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'pedidos',
-            key: 'codPedido'
-        }
-    },
-cep: {
+  codEntrega: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  idPedido: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'pedidos',
+      key: 'codPedido'
+    }
+  },
+  cep: {
     type: DataTypes.STRING(9),
     allowNull: false
   },
-rua: {
+  rua: {
     type: DataTypes.STRING(150),
     allowNull: false
   },
-numero: {
+  numero: {
     type: DataTypes.STRING(20),
     allowNull: false
   },
@@ -49,8 +49,8 @@ numero: {
     allowNull: false
   }
 }, {
-    tableName: 'entregas',
-    timestamps: false
+  tableName: 'entregas',
+  timestamps: false
 });
 
 module.exports = Entrega;
