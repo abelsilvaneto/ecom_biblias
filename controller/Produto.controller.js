@@ -1,4 +1,5 @@
 const Produto = require('../models/Produto')
+const Categoria = require('../models/Categoria')
 
 const cadastrar = async (req, res) => {
     const valores = req.body
@@ -8,6 +9,11 @@ const cadastrar = async (req, res) => {
     }
 
     try {
+        const categoria = await Categoria.findByPk(valores.IdCategoria)
+        if (!categoria) {
+            return res.status(404).json({ message: 'Categoria não encontrada' })
+        }
+
         let dados = await Produto.create(valores)
         res.status(201).json({ message: 'Produto cadastrado com sucesso!', dados })
     } catch (err) {
@@ -52,14 +58,18 @@ const atualizar = async (req, res) => {
 
     try {
         let dados = await Produto.findByPk(id)
-
         if (!dados) {
             return res.status(404).json({ message: 'Produto não encontrado' })
-        } else {
-            await Produto.update(valores, { where: { codProduto: id } })
-            dados = await Produto.findByPk(id)
-            res.status(200).json({ message: 'Produto atualizado com sucesso!', dados })
         }
+
+        const categoria = await Categoria.findByPk(valores.IdCategoria)
+        if (!categoria) {
+            return res.status(404).json({ message: 'Categoria não encontrada' })
+        }
+
+        await Produto.update(valores, { where: { codProduto: id } })
+        dados = await Produto.findByPk(id)
+        res.status(200).json({ message: 'Produto atualizado com sucesso!', dados })
     } catch (err) {
         console.log('Erro ao atualizar produto!', err)
         res.status(500).json({ message: 'Erro ao atualizar produto!' })

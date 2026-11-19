@@ -14,21 +14,21 @@ const cadastrar = async (req, res) => {
             return res.status(404).json({ message: 'Pedido não encontrado' })
         }
 
-        let dados = await Entrega.create(valores)
-        res.status(201).json({ message: 'Entrega cadastrada com sucesso!', dados })
+        const dados = await Entrega.create(valores)
+        return res.status(201).json({ message: 'Entrega cadastrada com sucesso!', dados })
     } catch (err) {
         console.log('Erro ao cadastrar entrega!', err)
-        res.status(500).json({ message: 'Erro ao cadastrar entrega!' })
+        return res.status(500).json({ message: 'Erro ao cadastrar entrega!' })
     }
 }
 
 const listar = async (req, res) => {
     try {
-        let dados = await Entrega.findAll()
-        res.status(200).json(dados)
+        const dados = await Entrega.findAll()
+        return res.status(200).json(dados)
     } catch (err) {
         console.log('Erro ao listar entregas!', err)
-        res.status(500).json({ message: 'Erro ao listar entregas!' })
+        return res.status(500).json({ message: 'Erro ao listar entregas!' })
     }
 }
 
@@ -36,15 +36,14 @@ const consultar = async (req, res) => {
     const id = req.params.id
 
     try {
-        let dados = await Entrega.findByPk(id)
+        const dados = await Entrega.findByPk(id)
         if (!dados) {
             return res.status(404).json({ message: 'Entrega não encontrada!' })
-        } else {
-            res.status(200).json(dados)
         }
+        return res.status(200).json(dados)
     } catch (err) {
         console.log('Erro ao consultar entrega!', err)
-        res.status(500).json({ message: 'Erro ao consultar entrega!' })
+        return res.status(500).json({ message: 'Erro ao consultar entrega!' })
     }
 }
 
@@ -58,17 +57,23 @@ const atualizar = async (req, res) => {
 
     try {
         let dados = await Entrega.findByPk(id)
-
         if (!dados) {
             return res.status(404).json({ message: 'Entrega não encontrada' })
-        } else {
-            await Entrega.update(valores, { where: { codEntrega: id } })
-            dados = await Entrega.findByPk(id)
-            res.status(200).json({ message: 'Entrega atualizada com sucesso!', dados })
         }
+
+        if (valores.IdPedido) {
+            const pedido = await Pedido.findByPk(valores.IdPedido)
+            if (!pedido) {
+                return res.status(404).json({ message: 'Pedido não encontrado' })
+            }
+        }
+
+        await Entrega.update(valores, { where: { codEntrega: id } })
+        dados = await Entrega.findByPk(id)
+        return res.status(200).json({ message: 'Entrega atualizada com sucesso!', dados })
     } catch (err) {
         console.log('Erro ao atualizar entrega!', err)
-        res.status(500).json({ message: 'Erro ao atualizar entrega!' })
+        return res.status(500).json({ message: 'Erro ao atualizar entrega!' })
     }
 }
 
@@ -80,13 +85,13 @@ const apagar = async (req, res) => {
 
         if (!dados) {
             return res.status(404).json({ message: 'Entrega não encontrada' })
-        } else {
-            await Entrega.destroy({ where: { codEntrega: id } })
-            res.status(200).json({ message: 'Entrega excluída com sucesso!' })
         }
+
+        await Entrega.destroy({ where: { codEntrega: id } })
+        return res.status(200).json({ message: 'Entrega excluída com sucesso!' })
     } catch (err) {
         console.log('Erro ao excluir entrega!', err)
-        res.status(500).json({ message: 'Erro ao excluir entrega!' })
+        return res.status(500).json({ message: 'Erro ao excluir entrega!' })
     }
 }
 

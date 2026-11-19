@@ -1,11 +1,8 @@
 # ==========================================
-# CONFIGURAÇÃO DOS AMBIENTES
+# CONFIGURAÇÃO DO AMBIENTE LOCAL
 # ==========================================
-@URL_LOCAL = http://localhost:3000
-@URL_RAILWAY = https://seu-projeto.up.railway.app
-
-# Defina o ambiente ativo
-@URL = {{URL_LOCAL}}
+@URL = http://localhost:3000
+@TOKEN = {{login.response.body.token}}
 
 ### ==========================================
 ### 1. STATUS DA API
@@ -52,7 +49,8 @@ Content-Type: application/json
   "tipo": "ADMIN"
 }
 
-### 2.4. Realizar Login
+### 2.4. Realizar Login (Execute esta requisição para capturar o @TOKEN automaticamente)
+# @name login
 POST {{URL}}/login
 Content-Type: application/json
 
@@ -62,13 +60,16 @@ Content-Type: application/json
 }
 
 ### 2.5. Listar Todos os Usuários
-GET {{URL}}/usuarios?statusLog=true
+GET {{URL}}/usuarios
+Authorization: Bearer {{TOKEN}}
 
 ### 2.6. Consultar Usuário por ID
-GET {{URL}}/usuario/1?statusLog=true
+GET {{URL}}/usuario/1
+Authorization: Bearer {{TOKEN}}
 
 ### 2.7. Atualizar Usuário
-PUT {{URL}}/usuario/1?statusLog=true
+PUT {{URL}}/usuario/1
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -80,7 +81,8 @@ Content-Type: application/json
 }
 
 ### 2.8. Deletar Usuário (Ex: ID 2)
-DELETE {{URL}}/usuario/2?statusLog=true
+DELETE {{URL}}/usuario/2
+Authorization: Bearer {{TOKEN}}
 
 
 ### ==========================================
@@ -88,7 +90,8 @@ DELETE {{URL}}/usuario/2?statusLog=true
 ### ==========================================
 
 ### 3.1. Cadastrar Categoria 1 (Bíblias de Estudo)
-POST {{URL}}/categoria?statusLog=true
+POST {{URL}}/categoria
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -97,7 +100,8 @@ Content-Type: application/json
 }
 
 ### 3.2. Cadastrar Categoria 2 (Devocionais e Femininas)
-POST {{URL}}/categoria?statusLog=true
+POST {{URL}}/categoria
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -106,7 +110,8 @@ Content-Type: application/json
 }
 
 ### 3.3. Cadastrar Categoria 3 (Infantis)
-POST {{URL}}/categoria?statusLog=true
+POST {{URL}}/categoria
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -114,14 +119,16 @@ Content-Type: application/json
   "descricao": "Linguagem simplificada e ilustrações para crianças."
 }
 
-### 3.4. Listar Categorias
+### 3.4. Listar Categorias (Rota Pública)
 GET {{URL}}/categorias
 
 ### 3.5. Consultar Categoria por ID
 GET {{URL}}/categoria/1
+Authorization: Bearer {{TOKEN}}
 
 ### 3.6. Atualizar Categoria
-PUT {{URL}}/categoria/1?statusLog=true
+PUT {{URL}}/categoria/1
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -135,7 +142,8 @@ Content-Type: application/json
 ### ==========================================
 
 ### 4.1. Cadastrar Bíblia 1
-POST {{URL}}/produto?statusLog=true
+POST {{URL}}/produto
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -147,7 +155,8 @@ Content-Type: application/json
 }
 
 ### 4.2. Cadastrar Bíblia 2
-POST {{URL}}/produto?statusLog=true
+POST {{URL}}/produto
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -159,7 +168,8 @@ Content-Type: application/json
 }
 
 ### 4.3. Cadastrar Bíblia 3
-POST {{URL}}/produto?statusLog=true
+POST {{URL}}/produto
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -171,7 +181,8 @@ Content-Type: application/json
 }
 
 ### 4.4. Cadastrar Bíblia 4
-POST {{URL}}/produto?statusLog=true
+POST {{URL}}/produto
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -183,7 +194,8 @@ Content-Type: application/json
 }
 
 ### 4.5. Cadastrar Bíblia 5
-POST {{URL}}/produto?statusLog=true
+POST {{URL}}/produto
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -194,14 +206,16 @@ Content-Type: application/json
   "idCategoria": 1
 }
 
-### 4.6. Listar Produtos
+### 4.6. Listar Produtos (Rota Pública)
 GET {{URL}}/produtos
 
 ### 4.7. Consultar Produto por ID
 GET {{URL}}/produto/1
+Authorization: Bearer {{TOKEN}}
 
 ### 4.8. Atualizar Produto
-PUT {{URL}}/produto/1?statusLog=true
+PUT {{URL}}/produto/1
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -218,7 +232,8 @@ Content-Type: application/json
 ### ==========================================
 
 ### 5.1. Criar Estoque para a Bíblia 1
-POST {{URL}}/estoque?statusLog=true
+POST {{URL}}/estoque
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -227,7 +242,8 @@ Content-Type: application/json
 }
 
 ### 5.2. Criar Estoque para a Bíblia 2
-POST {{URL}}/estoque?statusLog=true
+POST {{URL}}/estoque
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
@@ -236,123 +252,5 @@ Content-Type: application/json
 }
 
 ### 5.3. Criar Estoque para a Bíblia 3
-POST {{URL}}/estoque?statusLog=true
-Content-Type: application/json
-
-{
-  "idProduto": 3,
-  "quantidadeDisponivel": 15
-}
-
-### 5.4. Listar Todo o Estoque
-GET {{URL}}/estoques?statusLog=true
-
-### 5.5. Consultar Estoque por ID
-GET {{URL}}/estoque/1?statusLog=true
-
-### 5.6. Atualizar Quantidade no Estoque
-PUT {{URL}}/estoque/1?statusLog=true
-Content-Type: application/json
-
-{
-  "quantidadeDisponivel": 20
-}
-
-
-### ==========================================
-### 6. PEDIDOS
-### ==========================================
-
-### 6.1. Criar Pedido
-POST {{URL}}/pedido?statusLog=true
-Content-Type: application/json
-
-{
-  "idUsuario": 1,
-  "valorTotal": 289.80,
-  "status": "PENDENTE"
-}
-
-### 6.2. Listar Todos os Pedidos
-GET {{URL}}/pedidos?statusLog=true
-
-### 6.3. Consultar Pedido por ID
-GET {{URL}}/pedido/1?statusLog=true
-
-### 6.4. Atualizar Status do Pedido
-PUT {{URL}}/pedido/1?statusLog=true
-Content-Type: application/json
-
-{
-  "idUsuario": 1,
-  "valorTotal": 289.80,
-  "status": "PAGO"
-}
-
-
-### ==========================================
-### 7. ITENS DO PEDIDO
-### ==========================================
-
-### 7.1. Adicionar Item 1 ao Pedido (Bíblia Genebra)
-POST {{URL}}/item-pedido?statusLog=true
-Content-Type: application/json
-
-{
-  "idPedido": 1,
-  "idProduto": 1,
-  "quantidade": 1,
-  "precoUnitario": 199.90
-}
-
-### 7.2. Adicionar Item 2 ao Pedido (Bíblia Mulher)
-POST {{URL}}/item-pedido?statusLog=true
-Content-Type: application/json
-
-{
-  "idPedido": 1,
-  "idProduto": 3,
-  "quantidade": 1,
-  "precoUnitario": 89.90
-}
-
-### 7.3. Listar Itens dos Pedidos
-GET {{URL}}/itens-pedido?statusLog=true
-
-### 7.4. Consultar Item do Pedido por ID
-GET {{URL}}/item-pedido/1?statusLog=true
-
-
-### ==========================================
-### 8. ENTREGAS
-### ==========================================
-
-### 8.1. Cadastrar Endereço de Entrega do Pedido
-POST {{URL}}/entrega?statusLog=true
-Content-Type: application/json
-
-{
-  "idPedido": 1,
-  "cep": "88200-000",
-  "rua": "Avenida Lauro Müller",
-  "numero": "250",
-  "complemento": "Apto 102",
-  "bairro": "Centro",
-  "cidade": "Tijucas",
-  "estado": "SC",
-  "statusEntrega": "EM_PREPARACAO"
-}
-
-### 8.2. Listar Entregas
-GET {{URL}}/entregas?statusLog=true
-
-### 8.3. Consultar Entrega por ID
-GET {{URL}}/entrega/1?statusLog=true
-
-### 8.4. Atualizar Status da Entrega
-PUT {{URL}}/entrega/1?statusLog=true
-Content-Type: application/json
-
-{
-  "statusEntrega": "EM_TRANSITO"
-}
+POST {{URL}}/estoque
+Authorization: Bearer {{TOKEN
